@@ -6,7 +6,6 @@ from nivel2 import nivel2
 from nivel3 import nivel3
 from nivel4 import nivel4
 
-
 pg.init()
 
 WIDTH, HEIGHT = 800, 600
