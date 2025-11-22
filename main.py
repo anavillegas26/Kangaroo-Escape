@@ -6,19 +6,27 @@ from nivel2 import nivel2
 from nivel3 import nivel3
 from nivel4 import nivel4
 
+
 pg.init()
 
-WIDTH = 800
-HEIGHT = 600
+WIDTH, HEIGHT = 800, 600
 screen = pg.display.set_mode((WIDTH, HEIGHT))
 pg.display.set_caption("Kangaroo Escape")
 
-# Carga portada si existe (si no, seguirá sin fondo)
+# carga portada si existe (si no, seguirá sin fondo)
 try:
-    fondo = pg.image.load("portada.jpg")
+    fondo = pg.image.load("Kangaroo-Escape/image/portada.png")
     fondo = pg.transform.scale(fondo, (WIDTH, HEIGHT))
 except:
     fondo = None
+
+# agregar icono del juego si existe
+try:
+    icono = pg.image.load("Kangaroo-Escape/icon/icono.png")
+except:
+    icono = None
+if icono:
+    pg.display.set_icon(icono)
 
 font = pg.font.SysFont("Arial", 48, bold=True)
 small = pg.font.SysFont("Arial", 32)
@@ -78,12 +86,12 @@ def run_chain():
         # si r2 == "menu" vuelve al menu
     # si r1 == "menu" vuelve al menu
 
-# Loop del menú
+# loop del menú
 while True:
     for event in pg.event.get():
         if event.type == pg.QUIT:
             pg.quit()
-            sys.quit()
+            sys.exit()
 
         if event.type == pg.KEYDOWN and menu_abierto:
             if event.key == pg.K_LEFT:
@@ -106,7 +114,7 @@ while True:
                     volumen = max(0, volumen - 1)
                 if 440 < mx < 460 and 235 < my < 270:
                     volumen = min(10, volumen + 1)
-        
+
     if fondo:
         screen.blit(fondo, (0, 0))
     else:
