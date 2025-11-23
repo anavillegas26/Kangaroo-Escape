@@ -24,20 +24,20 @@ Recolectar todas las monedas del nivel y llegar al final sin perder todas las vi
 - Trampas del desierto
 
 # Power-Ups
-Zanahorias → restauran salud
-Boomerangs → permiten atacar enemigos a distancia
+- Zanahorias → restauran salud
+- Boomerangs → permiten atacar enemigos a distancia
 
 # Niveles
-Desierto del Outback – Nivel tutorial
-Cañón Rojo – Plataformas móviles y enemigos en movimiento
-Mina Perdida – Túneles oscuros con trampas
-Templo del Tesoro – Nivel final con jefe cazador furtivo
+1. Desierto del Outback – Nivel tutorial
+2. Cañón Rojo – Plataformas móviles y enemigos en movimiento
+3. Mina Perdida – Túneles oscuros con trampas
+4. Templo del Tesoro – Nivel final con jefe cazador furtivo
 
 # Estilo visual y sonido
-Gráficos coloridos con estética caricaturesca
-Fondos inspirados en el desierto australiano
-Música con tambores, sonidos de fauna
-Animaciones simples pero expresivas
+- Gráficos coloridos con estética caricaturesca
+- Fondos inspirados en el desierto australiano
+- Música con tambores, sonidos de fauna
+- Animaciones simples pero expresivas
 
 # Arquitectura del proyecto (POO)
 El juego está construido con Programación Orientada a Objetos, aplicando:
@@ -48,13 +48,13 @@ El juego está construido con Programación Orientada a Objetos, aplicando:
 - Moneda: coleccionable del nivel
 
 # Conceptos POO usados
-Concepto POO: Aplicación en el juego
-Clase: Representa entidades del juego (Jugador, Enemigo, Moneda)
-Objeto:	Instancias concretas (serpiente1, moneda3, kangaroo_jack)
-Herencia: Serpiente y Dingo heredan de Enemigo
-Polimorfismo: El método atacar() funciona distinto en Jugador y Enemigo
-Encapsulamiento: Vida del jugador con getters/setters
-Abstracción: Métodos como saltar() ocultan física interna
+1. Concepto POO: Aplicación en el juego
+2. Clase: Representa entidades del juego (Jugador, Enemigo, Moneda)
+3. Objeto: Instancias concretas (serpiente1, moneda3, kangaroo_jack)
+4. Herencia: Serpiente y Dingo heredan de Enemigo
+5. Polimorfismo: El método atacar() funciona distinto en Jugador y Enemigo
+6. Encapsulamiento: Vida del jugador con getters/setters
+7. Abstracción: Métodos como saltar() ocultan física interna
 
 # Instalación
 1. Clonar el repositorio
@@ -89,6 +89,6 @@ kangaroo-escape/
 - Nuevos enemigos
 
 # Colaboradores
-Colaborador 1 – Matthew Olmedo: Programación y diseño de niveles
-Colaborador 2 – Bryan Carcamo: Arte y sprites
-Colaborador 3 – Ana Villegas: Redacción e investigación
+(Colaborador 1) Matthew Olmedo: Programación y diseño de niveles
+(Colaborador 2) Bryan Carcamo: Arte y sprites
+(Colaborador 3) Ana Villegas: Redacción e investigación
