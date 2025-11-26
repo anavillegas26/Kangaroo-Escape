@@ -49,7 +49,7 @@ def dibujar_menu_transparente():
     overlay = pg.Surface((WIDTH, HEIGHT), pg.SRCALPHA)
     overlay.fill((0, 0, 0, 150))
     screen.blit(overlay, (0, 0))
-    titulo = font.render("OPCIONES", True, (255, 255, 255))
+    titulo = font.render("Opciones", True, (255, 255, 255))
     screen.blit(titulo, (WIDTH // 2 - titulo.get_width() // 2, 120))
     txt = small.render("Sonido:", True, (255, 255, 255))
     screen.blit(txt, (260, 240))
@@ -120,8 +120,8 @@ while True:
         screen.fill((40, 100, 180))
 
     if not menu_abierto:
-        jugar_rect = texto_boton("JUGAR", jugar_x, jugar_y)
-        opciones_rect = texto_boton("OPCIONES", opciones_x, opciones_y)
+        jugar_rect = texto_boton("Jugar", jugar_x, jugar_y)
+        opciones_rect = texto_boton("Opciones", opciones_x, opciones_y)
     else:
         dibujar_menu_transparente()
 

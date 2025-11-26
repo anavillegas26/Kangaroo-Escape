@@ -110,6 +110,11 @@ def nivel3(screen, clock):
                 else:
                     return "menu"
 
+        if player.left < 0:
+            player.left = 0
+        if player.right > WIDTH:
+            player.right = WIDTH
+
         if shooter:
             shooter.x += shooter_dir * 2
             if shooter.x <= shooter_min:

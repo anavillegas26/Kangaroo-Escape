@@ -65,6 +65,11 @@ def nivel1(screen, clock):
 
         if player.colliderect(e["rect"]):
             return "menu"
+        
+        if player.left < 0:
+            player.left = 0
+        if player.right > WIDTH:
+            player.right = WIDTH
     
         last = platforms[-1]
         encima_last = (player.bottom <= last.top + 5 and last.x <= player.centerx <= last.x + last.width)

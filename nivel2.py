@@ -73,6 +73,11 @@ def nivel2(screen, clock):
 
             if player.colliderect(e["rect"]):
                 return "menu"
+            
+        if player.left < 0:
+            player.left = 0
+        if player.right > WIDTH:
+            player.right = WIDTH
 
         upper = platforms[4]  
         sobre_ella = (
