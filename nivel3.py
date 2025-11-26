@@ -6,7 +6,6 @@ def nivel3(screen, clock):
     WIDTH, HEIGHT = 800, 600
     
     player = pg.Rect(100, HEIGHT - 90, 40, 40)
-
     speed = 5
     vel_y = 0
     gravity = 0.8
@@ -21,7 +20,6 @@ def nivel3(screen, clock):
         pg.Rect(150, 260, 120, 20),
         pg.Rect(350, 170, 120, 20),
         pg.Rect(600, 120, 120, 20),
-
         pg.Rect(0, HEIGHT - 40, WIDTH, 40)  # piso
     ]
 

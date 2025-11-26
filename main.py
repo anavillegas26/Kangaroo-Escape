@@ -73,14 +73,14 @@ def run_chain():
      - "nivel2" para pedir cargar nivel2
      - "nivel3" para pedir cargar nivel3
     """
-    r1 = nivel1(screen, clock)
     # r1 expected: "menu" or "nivel2"
+    r1 = nivel1(screen, clock)
     if r1 == "nivel2":
         r2 = nivel2(screen, clock)
         if r2 == "nivel3":
-            nivel3(screen, clock)
-            if r == "nivel4":
-              r = nivel4(screen, clock)
+            r3 = nivel3(screen, clock)
+            if r3 == "nivel4":
+                r4 = nivel4(screen, clock)
 
         # si r2 == "menu" vuelve al menu
     # si r1 == "menu" vuelve al menu
