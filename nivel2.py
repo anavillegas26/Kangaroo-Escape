@@ -72,7 +72,12 @@ def nivel2(screen, clock):
                 e["dir"] = -1
 
             if player.colliderect(e["rect"]):
-                return "menu"
+                # ¿Pisado?
+                if vel_y > 0 and player.bottom <= e["rect"].centery:
+                    enemies.remove(e)
+                    vel_y = -10  # rebote
+                else:
+                    return "menu"
             
         if player.left < 0:
             player.left = 0
