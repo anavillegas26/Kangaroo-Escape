@@ -74,14 +74,22 @@ def run_chain():
      - "nivel3" para pedir cargar nivel3
     """
     # r1 expected: "menu" or "nivel2"
+    pg.display.set_caption("Kangaroo Escape - Nivel 1")
     r1 = nivel1(screen, clock)
+
     if r1 == "nivel2":
+        pg.display.set_caption("Kangaroo Escape - Nivel 2")
         r2 = nivel2(screen, clock)
+
         if r2 == "nivel3":
+            pg.display.set_caption("Kangaroo Escape - Nivel 3")
             r3 = nivel3(screen, clock)
+
             if r3 == "nivel4":
+                pg.display.set_caption("Kangaroo Escape - Nivel 4")
                 r4 = nivel4(screen, clock)
 
+    pg.display.set_caption("Kangaroo Escape")
         # si r2 == "menu" vuelve al menu
     # si r1 == "menu" vuelve al menu
 

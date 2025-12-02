@@ -1,6 +1,7 @@
 import pygame as pg
 import sys
 import random
+import time
 
 def nivel4(screen, clock):
     WIDTH, HEIGHT = 800, 600

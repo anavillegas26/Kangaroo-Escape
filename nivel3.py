@@ -1,15 +1,32 @@
 import pygame as pg
 import sys
 import random
+import time
 
 def nivel3(screen, clock):
     WIDTH, HEIGHT = 800, 600
+
+    vidas_img = [
+        pg.image.load("Kangaroo-Escape/assets/barra-6.png"),
+        pg.image.load("Kangaroo-Escape/assets/barra-5.png"),
+        pg.image.load("Kangaroo-Escape/assets/barra-4.png"),
+        pg.image.load("Kangaroo-Escape/assets/barra-3.png"),
+        pg.image.load("Kangaroo-Escape/assets/barra-2.png"),
+        pg.image.load("Kangaroo-Escape/assets/barra-1.png")
+    ]
+
+    vidas_img = [pg.transform.scale(img, (160, 80)) for img in vidas_img]
     
     player = pg.Rect(100, HEIGHT - 90, 40, 40)
     speed = 5
     vel_y = 0
     gravity = 0.8
     jump = -14
+
+    vida = 5
+    ultimo_golpe = 0
+    tiempo_de_parpadeo = 0
+    parpadear = False
 
     platforms = [
         pg.Rect(50, 500, 120, 20),
@@ -102,13 +119,37 @@ def nivel3(screen, clock):
                 e["rect"].right = plat.right
                 e["dir"] = -1
 
+            tiempo_actual = time.time()
             if player.colliderect(e["rect"]):
                 # ¿Pisado?
                 if vel_y > 0 and player.bottom <= e["rect"].centery:
                     enemies.remove(e)
                     vel_y = -10  # rebote
                 else:
-                    return "menu"
+                    if tiempo_actual - ultimo_golpe > 1:
+                        vida -= 1
+                        ultimo_golpe = tiempo_actual
+
+                        parpadear = True
+                        tiempo_de_parpadeo = tiempo_actual
+
+                        if vida <= 0:
+                            desaparecer = time.time()
+                            while time.time() - desaparecer < 1.5:
+                                screen.fill((0, 0, 0))
+                                pg.display.update()
+                                clock.tick(60)
+
+                            font = pg.font.SysFont("Century  Gothic", 90, bold=True)
+                            text = font.render("Fin del Juego", True, (255, 0, 0))
+                            start = time.time()
+
+                            while time.time() - start < 4:
+                                screen.fill((0, 0, 0))
+                                screen.blit(text, (WIDTH // 2 - 270, HEIGHT // 2 - 50))
+                                pg.display.update()
+                                clock.tick(60)
+                            return "menu"
 
         if player.left < 0:
             player.left = 0
@@ -169,7 +210,16 @@ def nivel3(screen, clock):
         for p in platforms:
             pg.draw.rect(screen, (170, 120, 70), p)
 
-        pg.draw.rect(screen, (255,255,255), player)
+        jugador_visible = True
+        if parpadear:
+            if time.time() - tiempo_de_parpadeo < 0.5:
+                if int((time.time() - tiempo_de_parpadeo) * 10) % 2 == 0:
+                    jugador_visible = False
+                else:
+                    parpadear = False
+        if jugador_visible:
+            pg.draw.rect(screen, (255, 255, 255), player)
+        pg.draw.rect(screen, (255, 255, 255), player)
 
         for e in enemies:
             pg.draw.rect(screen, (255,60,60), e["rect"])
@@ -179,6 +229,8 @@ def nivel3(screen, clock):
 
         for b in bullets:
             pg.draw.rect(screen, (200,100,200), b["rect"])
+        
+        screen.blit(vidas_img[vida], (20, 20))
 
         pg.display.update()
         clock.tick(60)
