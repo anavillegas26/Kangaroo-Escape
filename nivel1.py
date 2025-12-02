@@ -5,6 +5,7 @@ import time
 def nivel1(screen, clock):
     WIDTH, HEIGHT = 800, 600
 
+    # Lista de las imágenes de la barra de vida
     vidas_img = [
         pg.image.load("Kangaroo-Escape/assets/barra-6.png"),
         pg.image.load("Kangaroo-Escape/assets/barra-5.png"),
@@ -13,20 +14,22 @@ def nivel1(screen, clock):
         pg.image.load("Kangaroo-Escape/assets/barra-2.png"),
         pg.image.load("Kangaroo-Escape/assets/barra-1.png")
     ]
-
     vidas_img = [pg.transform.scale(img, (160, 80)) for img in vidas_img]
 
+    # Características del jugador
     player = pg.Rect(100, HEIGHT - 90, 40, 40)
     speed = 5
     vel_y = 0
     gravity = 0.8
     jump = -14
 
+    # Características de la vida
     vida = 5
     ultimo_golpe = 0
     tiempo_de_parpadeo = 0
     parpadear = False
 
+    # Lista de plataformas
     platforms = [
         pg.Rect(0, HEIGHT - 40, WIDTH, 40),
         pg.Rect(120, 460, 200, 20),
@@ -35,7 +38,7 @@ def nivel1(screen, clock):
         pg.Rect(460, 180, 200, 20)  # última plataforma (arriba)
     ]
 
-    # Enemigo en plataforma baja/med
+    # Enemigo en plataforma baja/media
     plat_e = platforms[1]
     enemy = {
         "rect": pg.Rect(plat_e.x + 30, plat_e.y - 30, 30, 30),
@@ -90,7 +93,6 @@ def nivel1(screen, clock):
                 if tiempo_actual - ultimo_golpe > 1:
                     vida -= 1
                     ultimo_golpe = tiempo_actual
-
                     parpadear = True
                     tiempo_de_parpadeo = tiempo_actual
 
@@ -100,7 +102,6 @@ def nivel1(screen, clock):
                             screen.fill((0, 0, 0))
                             pg.display.update()
                             clock.tick(60)
-
                         font = pg.font.SysFont("Century  Gothic", 90, bold=True)
                         text = font.render("Fin del Juego", True, (255, 0, 0))
                         start = time.time()

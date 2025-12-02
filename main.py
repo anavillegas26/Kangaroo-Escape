@@ -1,6 +1,7 @@
 import pygame as pg
 import sys
 
+# Importar niveles
 from nivel1 import nivel1
 from nivel2 import nivel2
 from nivel3 import nivel3
@@ -8,18 +9,20 @@ from nivel4 import nivel4
 
 pg.init()
 
+# Resolución de la pantalla
 WIDTH, HEIGHT = 800, 600
 screen = pg.display.set_mode((WIDTH, HEIGHT))
+# Poner título de la ventana
 pg.display.set_caption("Kangaroo Escape")
 
-# carga portada si existe (si no, seguirá sin fondo)
+# Carga portada si existe (si no, seguirá sin fondo)
 try:
     fondo = pg.image.load("Kangaroo-Escape/image/portada.png")
     fondo = pg.transform.scale(fondo, (WIDTH, HEIGHT))
 except:
     fondo = None
 
-# agregar icono del juego si existe
+# Agregar icono del juego si existe
 try:
     icono = pg.image.load("Kangaroo-Escape/icon/icono.png")
 except:
@@ -27,12 +30,14 @@ except:
 if icono:
     pg.display.set_icon(icono)
 
+# Fuente de letras
 font = pg.font.SysFont("Arial", 48, bold=True)
 small = pg.font.SysFont("Arial", 32)
 
 menu_abierto = False
 volumen = 5
 
+# Botónes de jugar y opciones
 jugar_x, jugar_y = WIDTH // 2, 380
 opciones_x, opciones_y = WIDTH // 2, 450
 
@@ -62,7 +67,6 @@ def dibujar_menu_transparente():
     for i in range(10):
         color = (0, 255, 0) if i < volumen else (80, 80, 80)
         pg.draw.rect(screen, color, (260 + i * 28, 300, 22, 28), border_radius=4)
-
 clock = pg.time.Clock()
 
 def run_chain():
@@ -74,26 +78,31 @@ def run_chain():
      - "nivel3" para pedir cargar nivel3
     """
     # r1 expected: "menu" or "nivel2"
+    # Actualiza el título de ventana "Nivel 1"
     pg.display.set_caption("Kangaroo Escape - Nivel 1")
     r1 = nivel1(screen, clock)
 
     if r1 == "nivel2":
+        # Actualiza el título de ventana "Nivel 2"
         pg.display.set_caption("Kangaroo Escape - Nivel 2")
         r2 = nivel2(screen, clock)
 
         if r2 == "nivel3":
+            # Actualiza el título de ventana "Nivel 3"
             pg.display.set_caption("Kangaroo Escape - Nivel 3")
             r3 = nivel3(screen, clock)
 
             if r3 == "nivel4":
+                # Actualiza el título de ventana "Nivel 4"
                 pg.display.set_caption("Kangaroo Escape - Nivel 4")
                 r4 = nivel4(screen, clock)
 
+    # Vuelve al título original
     pg.display.set_caption("Kangaroo Escape")
-        # si r2 == "menu" vuelve al menu
-    # si r1 == "menu" vuelve al menu
+        # si r2 == "menu" vuelve al menú
+    # si r1 == "menu" vuelve al menú
 
-# loop del menú
+# Loop del menú
 while True:
     for event in pg.event.get():
         if event.type == pg.QUIT:
