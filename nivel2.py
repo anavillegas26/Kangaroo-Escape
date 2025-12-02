@@ -1,6 +1,7 @@
 import pygame as pg
 import sys
 import time
+import random
 
 def nivel2(screen, clock):
     WIDTH, HEIGHT = 800, 600
@@ -35,22 +36,31 @@ def nivel2(screen, clock):
         pg.Rect(320, 150, 150, 20),               # única plataforma superior (subida leve)
     ]
 
-    enemies = []
+    enemy_platforms = platforms[:-1].copy()
+    random.shuffle(enemy_platforms)
 
-    p1 = platforms[1]
+    plat_enemy1 = enemy_platforms.pop()
+    plat_enemy2 = enemy_platforms.pop()
+
+    enemies = []
+    enemy_size = 30
+
+    ex = plat_enemy1.x + random.randint(0, plat_enemy1.width - enemy_size)
+    ey = plat_enemy1.y - enemy_size
     enemies.append({
-        "rect": pg.Rect(p1.x + 20, p1.y - 40, 40, 40),
-        "dir": 1,
+        "rect": pg.Rect(ex, ey, enemy_size, enemy_size),
+        "dir": random.choice([-1,1]),
         "speed": 2,
-        "plat": p1
+        "plat": plat_enemy1
     })
 
-    p2 = platforms[2]
+    ex = plat_enemy2.x + random.randint(0, plat_enemy2.width - enemy_size)
+    ey = plat_enemy2.y - enemy_size
     enemies.append({
-        "rect": pg.Rect(p2.x + 20, p2.y - 40, 40, 40),
-        "dir": -1,
+        "rect": pg.Rect(ex, ey, enemy_size, enemy_size),
+        "dir": random.choice([-1,1]),
         "speed": 2,
-        "plat": p2
+        "plat": plat_enemy2
     })
 
     while True:
