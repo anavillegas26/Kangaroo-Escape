@@ -24,21 +24,21 @@ def nivel1(screen, clock):
         fondo_nivel = None
 
     # Características del jugador
-    player = pg.Rect(100, HEIGHT - 90, 50, 50) # Crea al canguro
+    player = pg.Rect(100, HEIGHT - 90, 40, 40) # Crea al canguro
     speed = 5
     vel_y = 0
     gravity = 0.8
     jump = -14
 
     # Añadir un código para el sprite del canguro
-    try:
-        canguro_img_original = pg.image.load("Kangaroo-Escape/assets/canguro.png").convert_alpha()
-        canguro_img_original = pg.transform.scale(canguro_img_original, (60, 60))
+    #try:
+        #canguro_img_original = pg.image.load("Kangaroo-Escape/assets/canguro.png").convert_alpha()
+        #canguro_img_original = pg.transform.scale(canguro_img_original, (60, 60))
         # Cambia la imagen a transparente
-        canguro_img_original.set_colorkey((0, 0, 0))
-    except:
-        canguro_img_original = None
-    mirando_derecha = True
+        #canguro_img_original.set_colorkey((0, 0, 0))
+    #except:
+        #canguro_img_original = None
+    #mirando_derecha = True
 
     # Características de la vida
     vida = 5
@@ -152,14 +152,14 @@ def nivel1(screen, clock):
             pg.draw.rect(screen, (150, 80, 40), p)
         
         # Dibuja el canguro con el sprite
-        if canguro_img_original:
-            if mirando_derecha:
-                canguro_img = canguro_img_original
-            else:
-                canguro_img = pg.transform.flip(canguro_img_original, True, False)
-            screen.blit(canguro_img, player)
-        else:
-            pg.draw.rect(screen, (255, 255, 255), player)
+        #if canguro_img_original:
+            #if mirando_derecha:
+                #canguro_img = canguro_img_original
+            #else:
+                #canguro_img = pg.transform.flip(canguro_img_original, True, False)
+            #screen.blit(canguro_img, player)
+        #else:
+            #pg.draw.rect(screen, (255, 255, 255), player)
 
         jugador_visible = True
         if parpadear:
