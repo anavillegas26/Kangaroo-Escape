@@ -7,6 +7,7 @@ from nivel2 import nivel2
 from nivel3 import nivel3
 from nivel4 import nivel4
 
+# Inicia todos los modulos pygame
 pg.init()
 
 # Resolución de la pantalla

@@ -6,6 +6,7 @@ import random
 def nivel2(screen, clock):
     WIDTH, HEIGHT = 800, 600
 
+    # Lista de las imágenes de la barra de vida
     vidas_img = [
         pg.image.load("Kangaroo-Escape/assets/barra-6.png"),
         pg.image.load("Kangaroo-Escape/assets/barra-5.png"),
@@ -14,9 +15,15 @@ def nivel2(screen, clock):
         pg.image.load("Kangaroo-Escape/assets/barra-2.png"),
         pg.image.load("Kangaroo-Escape/assets/barra-1.png")
     ]
-
     vidas_img = [pg.transform.scale(img, (160, 80)) for img in vidas_img]
 
+    # Añadir imagen de fondo
+    try:
+        fondo_nivel = pg.image.load("Kangaroo-Escape/image/fondo_nivel2.png").convert()
+        fondo_nivel = pg.transform.scale(fondo_nivel, (WIDTH, HEIGHT))
+    except:
+        fondo_nivel = None
+        
     player = pg.Rect(40, HEIGHT - 90, 40, 40)
     speed = 5
     vel_y = 0
@@ -148,6 +155,14 @@ def nivel2(screen, clock):
 
         for p in platforms:
             pg.draw.rect(screen, (160, 90, 50), p)
+
+        # Dibuja el fondo agregando para probar
+        if fondo_nivel:
+            screen.blit(fondo_nivel, (0, 0))
+        else:
+            screen.fill((120, 190, 255)) # Rellena la pantalla con un color celeste
+        for p in platforms:
+            pg.draw.rect(screen, (150, 80, 40), p)
 
         jugador_visible = True
         if parpadear:

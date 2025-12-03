@@ -6,6 +6,24 @@ import time
 def nivel4(screen, clock):
     WIDTH, HEIGHT = 800, 600
 
+    # Lista de las imágenes de la barra de vida
+    vidas_img = [
+        pg.image.load("Kangaroo-Escape/assets/barra-6.png"),
+        pg.image.load("Kangaroo-Escape/assets/barra-5.png"),
+        pg.image.load("Kangaroo-Escape/assets/barra-4.png"),
+        pg.image.load("Kangaroo-Escape/assets/barra-3.png"),
+        pg.image.load("Kangaroo-Escape/assets/barra-2.png"),
+        pg.image.load("Kangaroo-Escape/assets/barra-1.png")
+    ]
+    vidas_img = [pg.transform.scale(img, (160, 80)) for img in vidas_img]
+
+    # Añadir imagen de fondo
+    try:
+        fondo_nivel = pg.image.load("Kangaroo-Escape/image/fondo_nivel1.png").convert()
+        fondo_nivel = pg.transform.scale(fondo_nivel, (WIDTH, HEIGHT))
+    except:
+        fondo_nivel = None
+
     # --- JUGADOR ---
     player_size = 40
     player_rect = pg.Rect(100, HEIGHT - player_size - 50, player_size, player_size)
@@ -14,6 +32,11 @@ def nivel4(screen, clock):
     gravity = 0.5
     jump_force = -10
     on_ground = False
+
+    vida = 5
+    ultimo_golpe = 0
+    tiempo_de_parpadeo = 0
+    parpadear = False
 
     # --- PLATAFORMAS ---
     platforms = [
@@ -103,8 +126,43 @@ def nivel4(screen, clock):
                 e["rect"].right = p.right
                 e["dir"] = -1
 
+            tiempo_actual = time.time()
             if player_rect.colliderect(e["rect"]):
-                return "menu"
+                # ¿Pisado?
+                if player_y_vel > 0 and player_rect.bottom <= e["rect"].centery:
+                    enemies.remove(e)
+                    player_y_vel = -10  # rebote
+                else:
+
+                    if tiempo_actual - ultimo_golpe > 1:
+                        vida -= 1
+                        ultimo_golpe = tiempo_actual
+
+                        parpadear = True
+                        tiempo_de_parpadeo = tiempo_actual
+
+                        if vida <= 0:
+                            desaparecer = time.time()
+                            while time.time() - desaparecer < 1.5:
+                                screen.fill((0, 0, 0))
+                                pg.display.update()
+                                clock.tick(60)
+
+                            font = pg.font.SysFont("Century  Gothic", 90, bold=True)
+                            text = font.render("Fin del Juego", True, (255, 0, 0))
+                            start = time.time()
+
+                            while time.time() - start < 4:
+                                screen.fill((0, 0, 0))
+                                screen.blit(text, (WIDTH // 2 - 270, HEIGHT // 2 - 50))
+                                pg.display.update()
+                                clock.tick(60)
+                            return "menu"
+            
+        if player_rect.left < 0:
+            player_rect.left = 0
+        if player_rect.right > WIDTH:
+            player_rect.right = WIDTH
 
         # --- PASAR AL NIVEL 5 ---
         if player_rect.top <= 0 and player_y_vel < 0:
@@ -116,10 +174,30 @@ def nivel4(screen, clock):
         for plat in platforms:
             pg.draw.rect(screen, (160, 90, 50), plat)
 
+        # Dibuja el fondo agregando para probar
+        if fondo_nivel:
+            screen.blit(fondo_nivel, (0, 0))
+        else:
+            screen.fill((120, 190, 255)) # Rellena la pantalla con un color celeste
+        for p in platforms:
+            pg.draw.rect(screen, (150, 80, 40), p)
+
+        jugador_visible = True
+        if parpadear:
+            if time.time() - tiempo_de_parpadeo < 0.5:
+                if int((time.time() - tiempo_de_parpadeo) * 10) % 2 == 0:
+                    jugador_visible = False
+                else:
+                    parpadear = False
+        if jugador_visible:
+            pg.draw.rect(screen, (255, 255, 255), player_rect)
+
         pg.draw.rect(screen, (255, 255, 255), player_rect)
 
         for e in enemies:
             pg.draw.rect(screen, (255, 40, 40), e["rect"])
+
+        screen.blit(vidas_img[vida], (20, 20))
 
         pg.display.update()
         clock.tick(60)

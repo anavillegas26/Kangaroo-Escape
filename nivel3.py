@@ -6,6 +6,7 @@ import time
 def nivel3(screen, clock):
     WIDTH, HEIGHT = 800, 600
 
+    # Lista de las imágenes de la barra de vida
     vidas_img = [
         pg.image.load("Kangaroo-Escape/assets/barra-6.png"),
         pg.image.load("Kangaroo-Escape/assets/barra-5.png"),
@@ -14,8 +15,14 @@ def nivel3(screen, clock):
         pg.image.load("Kangaroo-Escape/assets/barra-2.png"),
         pg.image.load("Kangaroo-Escape/assets/barra-1.png")
     ]
-
     vidas_img = [pg.transform.scale(img, (160, 80)) for img in vidas_img]
+
+    # Añadir imagen de fondo
+    try:
+        fondo_nivel = pg.image.load("Kangaroo-Escape/image/fondo_nivel3.png").convert()
+        fondo_nivel = pg.transform.scale(fondo_nivel, (WIDTH, HEIGHT))
+    except:
+        fondo_nivel = None
     
     player = pg.Rect(100, HEIGHT - 90, 40, 40)
     speed = 5
@@ -166,12 +173,34 @@ def nivel3(screen, clock):
                 shooter_dir = -1
           
             if player.colliderect(shooter):
-            
+                tiempo_actual = time.time()
+                # ¿Pisado?
                 if vel_y > 0 and player.bottom <= shooter.centery:
                     shooter = None  
                     vel_y = -12     
                 else:
-                    return "menu"
+                    if tiempo_actual - ultimo_golpe > 1:
+                        vida -= 1
+                        ultimo_golpe = tiempo_actual
+                        parpadear = True
+                        tiempo_de_parpadeo = tiempo_actual
+
+                        if vida <= 0:
+                            desaparecer = time.time()
+                            while time.time() - desaparecer < 1.5:
+                                screen.fill((0, 0, 0))
+                                pg.display.update()
+                                clock.tick(60)
+                            font = pg.font.SysFont("Century  Gothic", 90, bold=True)
+                            text = font.render("Fin del Juego", True, (255, 0, 0))
+                            start = time.time()
+
+                            while time.time() - start < 4:
+                                screen.fill((0, 0, 0))
+                                screen.blit(text, (WIDTH // 2 - 270, HEIGHT // 2 - 50))
+                                pg.display.update()
+                                clock.tick(60)
+                            return "menu"
       
         if shooter:
             shoot_timer += 1
@@ -200,15 +229,46 @@ def nivel3(screen, clock):
                 continue
 
             if player.colliderect(b["rect"]):
-                return "menu"
+                tiempo_actual = time.time()
+                if tiempo_actual - ultimo_golpe > 1:
+                    vida -= 1
+                    ultimo_golpe = tiempo_actual
+                    parpadear = True
+                    tiempo_de_parpadeo = tiempo_actual
+
+                    if vida <= 0:
+                        desaparecer = time.time()
+                        while time.time() - desaparecer < 1.5:
+                            screen.fill((0, 0, 0))
+                            pg.display.update()
+                            clock.tick(60)
+
+                            font = pg.font.SysFont("Century  Gothic", 90, bold=True)
+                            text = font.render("Fin del Juego", True, (255, 0, 0))
+                            start = time.time()
+
+                            while time.time() - start < 4:
+                                screen.fill((0, 0, 0))
+                                screen.blit(text, (WIDTH // 2 - 270, HEIGHT // 2 - 50))
+                                pg.display.update()
+                                clock.tick(60)
+                            return "menu"
 
         if player.top <= 0:
-            return "menu"
+            return "nivel4"
 
         screen.fill((60, 20, 90))
 
         for p in platforms:
             pg.draw.rect(screen, (170, 120, 70), p)
+
+        # Dibuja el fondo agregando para probar
+        if fondo_nivel:
+            screen.blit(fondo_nivel, (0, 0))
+        else:
+            screen.fill((120, 190, 255)) # Rellena la pantalla con un color celeste
+        for p in platforms:
+            pg.draw.rect(screen, (150, 80, 40), p)
 
         jugador_visible = True
         if parpadear:
@@ -219,7 +279,6 @@ def nivel3(screen, clock):
                     parpadear = False
         if jugador_visible:
             pg.draw.rect(screen, (255, 255, 255), player)
-        pg.draw.rect(screen, (255, 255, 255), player)
 
         for e in enemies:
             pg.draw.rect(screen, (255,60,60), e["rect"])
