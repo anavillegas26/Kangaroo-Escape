@@ -133,10 +133,10 @@ def nivel3(screen, clock):
                     enemies.remove(e)
                     vel_y = -10  # rebote
                 else:
+
                     if tiempo_actual - ultimo_golpe > 1:
                         vida -= 1
                         ultimo_golpe = tiempo_actual
-
                         parpadear = True
                         tiempo_de_parpadeo = tiempo_actual
 
@@ -179,6 +179,7 @@ def nivel3(screen, clock):
                     shooter = None  
                     vel_y = -12     
                 else:
+
                     if tiempo_actual - ultimo_golpe > 1:
                         vida -= 1
                         ultimo_golpe = tiempo_actual
@@ -191,6 +192,7 @@ def nivel3(screen, clock):
                                 screen.fill((0, 0, 0))
                                 pg.display.update()
                                 clock.tick(60)
+
                             font = pg.font.SysFont("Century  Gothic", 90, bold=True)
                             text = font.render("Fin del Juego", True, (255, 0, 0))
                             start = time.time()
@@ -277,6 +279,7 @@ def nivel3(screen, clock):
                     jugador_visible = False
                 else:
                     parpadear = False
+                    
         if jugador_visible:
             pg.draw.rect(screen, (255, 255, 255), player)
 

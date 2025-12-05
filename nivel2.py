@@ -115,7 +115,6 @@ def nivel2(screen, clock):
                     if tiempo_actual - ultimo_golpe > 1:
                         vida -= 1
                         ultimo_golpe = tiempo_actual
-
                         parpadear = True
                         tiempo_de_parpadeo = tiempo_actual
 
@@ -171,9 +170,9 @@ def nivel2(screen, clock):
                     jugador_visible = False
                 else:
                     parpadear = False
+                    
         if jugador_visible:
             pg.draw.rect(screen, (255, 255, 255), player)
-        pg.draw.rect(screen, (255, 255, 255), player)
 
         for e in enemies:
             pg.draw.rect(screen, (255, 30, 30), e["rect"])
