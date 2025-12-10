@@ -173,8 +173,7 @@ def nivel1(screen, clock):
         
         if jugador_visible:
             pg.draw.rect(screen, (255, 255, 255), player)
-
-        pg.draw.rect(screen, (255, 255, 255), player)
+            
         pg.draw.rect(screen, (200, 30, 30), e["rect"]) # Dibuja al enemigo
 
         screen.blit(vidas_img[vida], (20, 20))

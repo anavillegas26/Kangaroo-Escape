@@ -245,16 +245,16 @@ def nivel3(screen, clock):
                             pg.display.update()
                             clock.tick(60)
 
-                            font = pg.font.SysFont("Century  Gothic", 90, bold=True)
-                            text = font.render("Fin del Juego", True, (255, 0, 0))
-                            start = time.time()
+                        font = pg.font.SysFont("Century  Gothic", 90, bold=True)
+                        text = font.render("Fin del Juego", True, (255, 0, 0))
+                        start = time.time()
 
-                            while time.time() - start < 4:
-                                screen.fill((0, 0, 0))
-                                screen.blit(text, (WIDTH // 2 - 270, HEIGHT // 2 - 50))
-                                pg.display.update()
-                                clock.tick(60)
-                            return "menu"
+                        while time.time() - start < 4:
+                            screen.fill((0, 0, 0))
+                            screen.blit(text, (WIDTH // 2 - 270, HEIGHT // 2 - 50))
+                            pg.display.update()
+                            clock.tick(60)
+                        return "menu"
 
         if player.top <= 0:
             return "nivel4"
