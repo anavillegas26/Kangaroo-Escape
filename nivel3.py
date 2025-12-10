@@ -24,12 +24,24 @@ def nivel3(screen, clock):
     except:
         fondo_nivel = None
     
+    # Características del jugador
     player = pg.Rect(100, HEIGHT - 90, 40, 40)
     speed = 5
     vel_y = 0
     gravity = 0.8
     jump = -14
 
+    # Añadir un código para el sprite del canguro
+    try:
+        canguro_img_original = pg.image.load("Kangaroo-Escape/assets/canguro.png").convert_alpha()
+        canguro_img_original = pg.transform.scale(canguro_img_original, (60, 60))
+        # Cambia la imagen a transparente
+        canguro_img_original.set_colorkey((0, 0, 0))
+    except:
+        canguro_img_original = None
+    mirando_derecha = True
+
+    # Características de la vida
     vida = 5
     ultimo_golpe = 0
     tiempo_de_parpadeo = 0
@@ -102,8 +114,10 @@ def nivel3(screen, clock):
         keys = pg.key.get_pressed()
         if keys[pg.K_LEFT]:
             player.x -= speed
+            mirando_derecha = False # Cambia de linea
         if keys[pg.K_RIGHT]:
             player.x += speed
+            mirando_derecha = True # Cambia de linea
         if keys[pg.K_SPACE] and vel_y == 0:
             vel_y = jump
 
@@ -272,16 +286,30 @@ def nivel3(screen, clock):
         for p in platforms:
             pg.draw.rect(screen, (150, 80, 40), p)
 
+        # Verificar la visibilidad del jugador y el parpadeo al recibir daño
         jugador_visible = True
         if parpadear:
             if time.time() - tiempo_de_parpadeo < 0.5:
                 if int((time.time() - tiempo_de_parpadeo) * 10) % 2 == 0:
                     jugador_visible = False
+            else:
+                parpadear = False
+
+        # Dibuja el canguro con el sprite
+        if canguro_img_original:
+            if jugador_visible:
+                if mirando_derecha:
+                    canguro_img = canguro_img_original
                 else:
-                    parpadear = False
-                    
-        if jugador_visible:
-            pg.draw.rect(screen, (255, 255, 255), player)
+                    canguro_img = pg.transform.flip(canguro_img_original, True, False)
+                
+                sprite_rect = canguro_img.get_rect()
+                sprite_rect.midbottom = player.midbottom
+
+                screen.blit(canguro_img, sprite_rect.topleft)
+            else:
+                if jugador_visible:
+                    pg.draw.rect(screen, (255, 255, 255), player)
 
         for e in enemies:
             pg.draw.rect(screen, (255,60,60), e["rect"])

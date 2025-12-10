@@ -31,14 +31,14 @@ def nivel1(screen, clock):
     jump = -14
 
     # Añadir un código para el sprite del canguro
-    #try:
-        #canguro_img_original = pg.image.load("Kangaroo-Escape/assets/canguro.png").convert_alpha()
-        #canguro_img_original = pg.transform.scale(canguro_img_original, (60, 60))
+    try:
+        canguro_img_original = pg.image.load("Kangaroo-Escape/assets/canguro.png").convert_alpha()
+        canguro_img_original = pg.transform.scale(canguro_img_original, (60, 60))
         # Cambia la imagen a transparente
-        #canguro_img_original.set_colorkey((0, 0, 0))
-    #except:
-        #canguro_img_original = None
-    #mirando_derecha = True
+        canguro_img_original.set_colorkey((0, 0, 0))
+    except:
+        canguro_img_original = None
+    mirando_derecha = True
 
     # Características de la vida
     vida = 5
@@ -152,27 +152,31 @@ def nivel1(screen, clock):
             screen.fill((120, 190, 255)) # Rellena la pantalla con un color celeste
         for p in platforms:
             pg.draw.rect(screen, (150, 80, 40), p)
-        
-        # Dibuja el canguro con el sprite
-        #if canguro_img_original:
-            #if mirando_derecha:
-                #canguro_img = canguro_img_original
-            #else:
-                #canguro_img = pg.transform.flip(canguro_img_original, True, False)
-            #screen.blit(canguro_img, player)
-        #else:
-            #pg.draw.rect(screen, (255, 255, 255), player)
 
+        # Verificar la visibilidad del jugador y el parpadeo al recibir daño
         jugador_visible = True
         if parpadear:
             if time.time() - tiempo_de_parpadeo < 0.5:
                 if int((time.time() - tiempo_de_parpadeo) * 10) % 2 == 0:
                     jugador_visible = False
+            else:
+                parpadear = False
+
+        # Dibuja el canguro con el sprite
+        if canguro_img_original:
+            if jugador_visible:
+                if mirando_derecha:
+                    canguro_img = canguro_img_original
                 else:
-                    parpadear = False
-        
-        if jugador_visible:
-            pg.draw.rect(screen, (255, 255, 255), player)
+                    canguro_img = pg.transform.flip(canguro_img_original, True, False)
+                
+                sprite_rect = canguro_img.get_rect()
+                sprite_rect.midbottom = player.midbottom
+
+                screen.blit(canguro_img, sprite_rect.topleft)
+            else:
+                if jugador_visible:
+                    pg.draw.rect(screen, (255, 255, 255), player)
             
         pg.draw.rect(screen, (200, 30, 30), e["rect"]) # Dibuja al enemigo
 
