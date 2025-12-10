@@ -6,7 +6,6 @@ from nivel1 import nivel1
 from nivel2 import nivel2
 from nivel3 import nivel3
 from nivel4 import nivel4
-from nivel5 import nivel5
 
 # Inicia todos los modulos pygame
 pg.init()
@@ -98,11 +97,6 @@ def run_chain():
                 # Actualiza el título de ventana "Nivel 4"
                 pg.display.set_caption("Kangaroo Escape - Nivel 4")
                 r4 = nivel4(screen, clock)
-
-                if r4 == "nivel5":
-                    # Actualiza el título de ventana "Nivel 5"
-                    pg.display.set_caption("Kangaroo Escape - Nivel 5")
-                    r5 = nivel5(screen, clock)
 
     # Vuelve al título original
     pg.display.set_caption("Kangaroo Escape")
