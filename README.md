@@ -87,6 +87,7 @@ kangaroo-escape/
 │   └── main.py
 │── README.md
 │── requirements.txt
+```
 
 # Estado del proyecto
 🟡 En desarrollo (versión prototipo).

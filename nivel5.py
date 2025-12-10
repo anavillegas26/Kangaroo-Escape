@@ -19,7 +19,7 @@ def nivel5(screen, clock):
 
     # Añadir imagen de fondo
     try:
-        fondo_nivel = pg.image.load("Kangaroo-Escape/image/fondo_nivel1.png").convert()
+        fondo_nivel = pg.image.load("Kangaroo-Escape/image/fondo_nivel2.png").convert()
         fondo_nivel = pg.transform.scale(fondo_nivel, (WIDTH, HEIGHT))
     except:
         fondo_nivel = None
