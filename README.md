@@ -4,7 +4,7 @@
 
 
 
-![Kanguroo_Escape](https://github.com/user-attachments/assets/8b7ac5a9-5c75-4fd4-b21f-05624d05c9d1)
+![Kangaroo_Escape](https://github.com/user-attachments/assets/8b7ac5a9-5c75-4fd4-b21f-05624d05c9d1)
 
 
 Juego de plataformas 2D desarrollado con Pygame basado en la película "Kangaroo Jack", donde el jugador controla a Kangaroo Jack, un canguro aventurero que debe recuperar monedas de oro robadas mientras evita enemigos y trampas en el desierto australiano.
