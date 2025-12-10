@@ -73,18 +73,19 @@ pip install pygame
 python main.py
 
 # Estructura del proyecto
-kangaroo-escape/;
-│── assets/;
-│   ├── sprites/;
-│   ├── sonidos/;
-│   └── fondos/;
-│── src/;
-│   ├── player.py;
-│   ├── enemy.py;
-│   ├── level.py;
-│   ├── powerups.py;
-│   └── main.py;
-│── README.md;
+```bash
+kangaroo-escape/
+│── assets/
+│   ├── sprites/
+│   ├── sonidos/
+│   └── fondos/
+│── src/
+│   ├── player.py
+│   ├── enemy.py
+│   ├── level.py
+│   ├── powerups.py
+│   └── main.py
+│── README.md
 │── requirements.txt
 
 # Estado del proyecto
