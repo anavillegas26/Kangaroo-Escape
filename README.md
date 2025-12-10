@@ -99,6 +99,11 @@ kangaroo-escape/
 - Nuevos enemigos
 
 # Colaboradores
-Colaborador 1 – Matthew Olmedo: Programación y diseño de niveles
-Colaborador 2 – Bryan Carcamo: Arte y sprites
-Colaborador 3 – Ana Villegas: Redacción e investigación
+**Matthew Olmedo**
+➡ Programación y diseño de niveles
+
+**Bryan Carcamo**
+➡ Arte y sprites
+
+**Ana Villegas**
+➡ Redacción e investigación
