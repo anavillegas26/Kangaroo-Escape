@@ -1,7 +1,7 @@
 import pygame as pg
 import sys
-import random
 import time
+import random
 
 def nivel3(screen, clock):
     WIDTH, HEIGHT = 800, 600
@@ -31,7 +31,13 @@ def nivel3(screen, clock):
     gravity = 0.8
     jump = -14
 
-    # Añadir un código para el sprite del canguro
+    # Características de la vida
+    vida = 5
+    ultimo_golpe = 0
+    tiempo_de_parpadeo = 0
+    parpadear = False
+
+    # Carga el sprite del canguro
     try:
         canguro_img_original = pg.image.load("Kangaroo-Escape/assets/canguro.png").convert_alpha()
         canguro_img_original = pg.transform.scale(canguro_img_original, (60, 60))
@@ -41,11 +47,25 @@ def nivel3(screen, clock):
         canguro_img_original = None
     mirando_derecha = True
 
-    # Características de la vida
-    vida = 5
-    ultimo_golpe = 0
-    tiempo_de_parpadeo = 0
-    parpadear = False
+    # Carga el sprite del enemigo
+    try:
+        enemy_img_original = pg.image.load("Kangaroo-Escape/assets/serpiente.png")
+        enemy_img_original = pg.transform.scale(enemy_img_original, (60, 60))
+        enemy_img_right = enemy_img_original
+        enemy_img_left = pg.transform.flip(enemy_img_original, True, False)
+    except:
+        enemy_img_original = None
+        enemy_img_right = None
+        enemy_img_left = None
+
+    # Efectos de sonido
+    pg.mixer.init() # Inicializar el mixer
+    try:
+        sonido_saltar = pg.mixer.Sound("Kangaroo-Escape/audio/saltar.wav")
+        sonido_aplastar = pg.mixer.Sound("Kangaroo-Escape/audio/aplastar.wav")
+    except:
+        sonido_saltar = None
+        sonido_aplastar = None
 
     platforms = [
         pg.Rect(50, 500, 120, 20),
@@ -67,7 +87,7 @@ def nivel3(screen, clock):
     plat_shooter = enemy_platforms.pop()
 
     enemies = []
-    enemy_size = 30
+    enemy_size = 48
 
     ex = plat_enemy1.x + random.randint(0, plat_enemy1.width - enemy_size)
     ey = plat_enemy1.y - enemy_size
@@ -120,6 +140,8 @@ def nivel3(screen, clock):
             mirando_derecha = True # Cambia de linea
         if keys[pg.K_SPACE] and vel_y == 0:
             vel_y = jump
+            if sonido_saltar:
+                sonido_saltar.play() # Reproduce el sonido al saltar
 
         vel_y += gravity
         player.y += vel_y
@@ -144,6 +166,8 @@ def nivel3(screen, clock):
             if player.colliderect(e["rect"]):
                 # ¿Pisado?
                 if vel_y > 0 and player.bottom <= e["rect"].centery:
+                    if sonido_aplastar:
+                        sonido_aplastar.play() # Reproduce el sonido al eliminar un enemigo
                     enemies.remove(e)
                     vel_y = -10  # rebote
                 else:
@@ -190,6 +214,8 @@ def nivel3(screen, clock):
                 tiempo_actual = time.time()
                 # ¿Pisado?
                 if vel_y > 0 and player.bottom <= shooter.centery:
+                    if sonido_aplastar:
+                        sonido_aplastar.play() # Reproduce el sonido al eliminar un enemigo
                     shooter = None  
                     vel_y = -12     
                 else:
@@ -312,7 +338,14 @@ def nivel3(screen, clock):
                     pg.draw.rect(screen, (255, 255, 255), player)
 
         for e in enemies:
-            pg.draw.rect(screen, (255,60,60), e["rect"])
+            if enemy_img_original:
+                if e["dir"] == 1:
+                    enemy_img = enemy_img_right
+                else:
+                    enemy_img = enemy_img_left    
+                screen.blit(enemy_img, e["rect"])
+            else:
+                pg.draw.rect(screen, (255, 60, 60), e["rect"])
 
         if shooter:
             pg.draw.rect(screen, (160,40,160), shooter)

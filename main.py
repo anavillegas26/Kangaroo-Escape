@@ -32,8 +32,8 @@ if icono:
     pg.display.set_icon(icono)
 
 # Fuente de letras
-font = pg.font.SysFont("Arial", 48, bold=True)
-small = pg.font.SysFont("Arial", 32)
+font = pg.font.SysFont("Century Gothic", 48, bold=True)
+small = pg.font.SysFont("Century Gothic", 26)
 
 menu_abierto = False
 volumen = 5
