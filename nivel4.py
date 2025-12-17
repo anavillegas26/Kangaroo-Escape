@@ -248,7 +248,7 @@ def nivel4(screen, clock):
                 if e["dir"] == 1:
                     enemy_img = enemy_img_right
                 else:
-                    enemy_img = enemy_img_left    
+                    enemy_img = enemy_img_left
                 screen.blit(enemy_img, e["rect"])
             else:
                 pg.draw.rect(screen, (255, 60, 60), e["rect"])

@@ -38,7 +38,7 @@ def nivel5(screen, clock):
     tiempo_de_parpadeo = 0
     parpadear = False
 
-    # Añadir un código para el sprite del canguro
+    # Carga el sprite del canguro
     try:
         canguro_img_original = pg.image.load("Kangaroo-Escape/assets/canguro.png").convert_alpha()
         canguro_img_original = pg.transform.scale(canguro_img_original, (60, 60))
@@ -47,6 +47,17 @@ def nivel5(screen, clock):
     except:
         canguro_img_original = None
     mirando_derecha = True
+
+    # Carga el sprite del shooter
+    try:
+        shooter_img_original = pg.image.load("Kangaroo-Escape/assets/dingo.png")
+        shooter_img_original = pg.transform.scale(shooter_img_original, (60, 60))
+        shooter_img_right = shooter_img_original
+        shooter_img_left = pg.transform.flip(shooter_img_original, True, False)
+    except:
+        shooter_img_original = None
+        shooter_img_right = None
+        shooter_img_left = None
 
     # Efectos de sonido
     pg.mixer.init() # Inicializar el mixer
@@ -73,7 +84,7 @@ def nivel5(screen, clock):
     bullets = []
     bullet_interval = 90  # 1.5 seg
     shoot_timer = 0
-    enemy_size = 30
+    enemy_size = 50
 
     for plat in platforms[1:]:
         ex = plat.x + random.randint(0, plat.width - enemy_size)
@@ -258,7 +269,14 @@ def nivel5(screen, clock):
                     pg.draw.rect(screen, (255, 255, 255), player)
 
         for e in enemies:
-            pg.draw.rect(screen, (160,40,160), e["rect"])
+            if shooter_img_original:
+                if e["dir"] == 1:
+                    shooter_img = shooter_img_left
+                else:
+                    shooter_img = shooter_img_right
+                screen.blit(shooter_img, e["rect"])
+            else:        
+                pg.draw.rect(screen, (160,40,160), e["rect"])
 
         for b in bullets:
             pg.draw.rect(screen, (200,100,200), b["rect"])
