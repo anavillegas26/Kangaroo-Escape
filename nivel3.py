@@ -57,6 +57,17 @@ def nivel3(screen, clock):
         enemy_img_original = None
         enemy_img_right = None
         enemy_img_left = None
+    
+    # Carga el sprite del shooter
+    try:
+        shooter_img_original = pg.image.load("Kangaroo-Escape/assets/dingo.png")
+        shooter_img_original = pg.transform.scale(shooter_img_original, (60, 60))
+        shooter_img_right = shooter_img_original
+        shooter_img_left = pg.transform.flip(shooter_img_original, True, False)
+    except:
+        shooter_img_original = None
+        shooter_img_right = None
+        shooter_img_left = None
 
     # Efectos de sonido
     pg.mixer.init() # Inicializar el mixer
@@ -107,7 +118,7 @@ def nivel3(screen, clock):
         "plat": plat_enemy2
     })
   
-    shooter_size = 30
+    shooter_size = 50
     sp = plat_shooter
 
     shooter = pg.Rect(
@@ -348,7 +359,15 @@ def nivel3(screen, clock):
                 pg.draw.rect(screen, (255, 60, 60), e["rect"])
 
         if shooter:
-            pg.draw.rect(screen, (160,40,160), shooter)
+            if shooter_img_original:
+                if shooter_dir == 1:
+                    shooter_img = shooter_img_left
+                else:
+                    shooter_img = shooter_img_right
+
+                screen.blit(shooter_img, shooter)
+            else:        
+                pg.draw.rect(screen, (160,40,160), shooter)
 
         for b in bullets:
             pg.draw.rect(screen, (200,100,200), b["rect"])

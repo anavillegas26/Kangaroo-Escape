@@ -21,7 +21,6 @@ Controles de movimiento:
 - ⬅️ Izquierda: moverse a la izquierda
 - ➡️ Derecha: moverse a la derecha
 - ⬆️ Espacio/Barra espaciadora: saltar
-- ⬆️ Mantener salto: súper salto
 
 # Objetivo
 Recolectar todas las monedas del nivel y llegar al final sin perder todas las vidas.
@@ -29,11 +28,6 @@ Recolectar todas las monedas del nivel y llegar al final sin perder todas las vi
 # Enemigos
 - Serpientes
 - Dingos
-- Trampas del desierto
-
-# Power-Ups
-- Zanahorias → restauran salud
-- Boomerangs → permiten atacar enemigos a distancia
 
 # Niveles
 1. Desierto del Outback – Nivel tutorial
@@ -51,7 +45,6 @@ Recolectar todas las monedas del nivel y llegar al final sin perder todas las vi
 El juego está construido con Programación Orientada a Objetos, aplicando:
 - Jugador: movimiento, salto y física
 - Enemigo (clase base): Serpiente, Dingo
-- PowerUp: Zanahoria, Boomerang
 - Nivel: gestiona colisiones, plataformas y entidad del jugador
 - Moneda: coleccionable del nivel
 
