@@ -93,10 +93,12 @@ kangaroo-escape/
 🟡 En desarrollo (versión prototipo).
 
 # Próximas mejoras
-- Menú principal
+- Opciones (volumen funcional)
 - Sistema de guardado
 - Más animaciones del jugador
 - Nuevos enemigos
+- Añadir sprite al enemigo morado
+- Añadir monedas y zanahorias al juego
 
 # Colaboradores
 **Matthew Olmedo**
