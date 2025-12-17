@@ -6,9 +6,13 @@ from nivel1 import nivel1
 from nivel2 import nivel2
 from nivel3 import nivel3
 from nivel4 import nivel4
+from nivel5 import nivel5
 
 # Inicia todos los modulos pygame
 pg.init()
+
+# Inicializar mixer
+pg.mixer.init()
 
 # Resolución de la pantalla
 WIDTH, HEIGHT = 800, 600
@@ -35,8 +39,8 @@ if icono:
 font = pg.font.SysFont("Century Gothic", 48, bold=True)
 small = pg.font.SysFont("Century Gothic", 26)
 
-menu_abierto = False
 volumen = 5
+menu_abierto = False
 
 # Botónes de jugar y opciones
 jugar_x, jugar_y = WIDTH // 2, 380
@@ -97,6 +101,11 @@ def run_chain():
                 # Actualiza el título de ventana "Nivel 4"
                 pg.display.set_caption("Kangaroo Escape - Nivel 4")
                 r4 = nivel4(screen, clock)
+                    
+                if r4 == "nivel5":
+                    # Actualiza el título de ventana "Nivel 5"
+                    pg.display.set_caption("Kangaroo Escape - Nivel 5")
+                    r5 = nivel5(screen, clock)
 
     # Vuelve al título original
     pg.display.set_caption("Kangaroo Escape")
@@ -113,8 +122,10 @@ while True:
         if event.type == pg.KEYDOWN and menu_abierto:
             if event.key == pg.K_LEFT:
                 volumen = max(0, volumen - 1)
+                pg.mixer_music.set_volume(volumen / 10)
             if event.key == pg.K_RIGHT:
                 volumen = min(10, volumen + 1)
+                pg.mixer_music.set_volume(volumen / 10)
             if event.key == pg.K_ESCAPE:
                 menu_abierto = False
 
@@ -129,8 +140,10 @@ while True:
             else:
                 if 360 < mx < 380 and 235 < my < 270:
                     volumen = max(0, volumen - 1)
+                    pg.mixer_music.set_volume(volumen / 10)
                 if 440 < mx < 460 and 235 < my < 270:
                     volumen = min(10, volumen + 1)
+                    pg.mixer_music.set_volume(volumen / 10)
 
     if fondo:
         screen.blit(fondo, (0, 0))

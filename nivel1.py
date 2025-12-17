@@ -29,6 +29,8 @@ def nivel1(screen, clock):
     vel_y = 0
     gravity = 0.8
     jump = -14
+    on_ground = False
+    mirando_derecha = True
 
     # Características de la vida
     vida = 5
@@ -44,7 +46,6 @@ def nivel1(screen, clock):
         canguro_img_original.set_colorkey((0, 0, 0))
     except:
         canguro_img_original = None
-    mirando_derecha = True
 
     # Carga el sprite del enemigo
     try:
